@@ -28,7 +28,7 @@ AWS_ACCESS_KEY_ID='' # amazon public key
 AWS_SECRET_ACCESS_KEY='' # amazon private key
 AWS_STORAGE_BUCKET_NAME='' #bucket name
 ```
-####Also you need to specify a local folder where the csv files are located in local storage:
+#### Also you need to specify a local folder where the csv files are located in local storage:
 ```yaml
 volumes:
   - <your_folder>:/usr/src/storage
