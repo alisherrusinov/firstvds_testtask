@@ -2,10 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .celery import celery_app
 from celery import current_app
-from time import time
 from .tasks import csv_task
-from .models import Task
-
 
 
 class CreateTaskView(APIView):
@@ -23,5 +20,16 @@ class AllTasks(APIView):
             for node, tasks in active.items():
                 all_tasks += tasks
         return Response({'Count:': len(all_tasks)})
+
+class TaskResult(APIView):
+    def post(self, request):
+        task_id = request.data.get('id')
+        task = current_app.AsyncResult(task_id)
+        response_data = {'task_status': task.status, 'task_id': task.id}
+        if task.status == 'SUCCESS':
+            result = task.get()
+            response_data['result'] = result
+        return Response(response_data)
+
 
 
