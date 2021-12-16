@@ -18,4 +18,5 @@ def csv_task(filename):
             float_col = float(column)
             total += float_col
     print(total)
+
     return total
