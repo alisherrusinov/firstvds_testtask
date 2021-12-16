@@ -25,6 +25,9 @@ services:
       - CELERY_BROKER_URL=redis://backend_redis_1:6379
       - CELERY_RESULT_BACKEND=redis://backend_redis_1:6379
       - LOCAL_FOLDER=/usr/src/storage
+      - AWS_ACCESS_KEY_ID=''
+      - AWS_SECRET_ACCESS_KEY=''
+      - AWS_STORAGE_BUCKET_NAME''
       - REMOTE_STORAGE=false
 
     command:  celery -A csvprocessing worker --loglevel=info
