@@ -35,23 +35,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
     'csvprocessing.apps.CsvprocessingConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -122,6 +117,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+REMOTE_STORAGE = env('REMOTE_STORAGE').lower() in ('true', '1', 't')
+print(REMOTE_STORAGE)
+if(REMOTE_STORAGE):
+    AWS_ACCESS_KEY_ID = 'AKIATFFQ2W6I4FALFQWS'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'alishertestbucket'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    LOCAL_FOLDER = '/home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files'
+else:
+    LOCAL_FOLDER = '/home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

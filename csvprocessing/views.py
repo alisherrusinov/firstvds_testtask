@@ -21,6 +21,7 @@ class AllTasks(APIView):
                 all_tasks += tasks
         return Response({'Count:': len(all_tasks)})
 
+
 class TaskResult(APIView):
     def post(self, request):
         task_id = request.data.get('id')
@@ -30,6 +31,3 @@ class TaskResult(APIView):
             result = task.get()
             response_data['result'] = result
         return Response(response_data)
-
-
-
