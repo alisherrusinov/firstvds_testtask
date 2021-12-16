@@ -128,9 +128,9 @@ if(REMOTE_STORAGE):
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
-    LOCAL_FOLDER = '/home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files'
+    LOCAL_FOLDER = env('LOCAL_FOLDER')
 else:
-    LOCAL_FOLDER = '/home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files'
+    LOCAL_FOLDER = env('LOCAL_FOLDER')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

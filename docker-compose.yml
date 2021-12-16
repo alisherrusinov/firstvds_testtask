@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  redis:
+    image: "redis:alpine"
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+      - /home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files/:/usr/src/storage
+    ports:
+      - "8000:8000"
+    environment:
+      - CELERY_BROKER_URL=redis://backend_redis_1:6379
+      - CELERY_RESULT_BACKEND=redis://backend_redis_1:6379
+      - LOCAL_FOLDER=/usr/src/storage
+      - REMOTE_STORAGE=false
+    depends_on:
+      - redis
+  celery:
+    restart: always
+    build: .
+    environment:
+      - CELERY_BROKER_URL=redis://backend_redis_1:6379
+      - CELERY_RESULT_BACKEND=redis://backend_redis_1:6379
+      - LOCAL_FOLDER=/usr/src/storage
+      - REMOTE_STORAGE=false
+
+    command:  celery -A csvprocessing worker --loglevel=info
+    volumes:
+      - ./:/usr/src/app/
+      - /home/alisher/PycharmProjects/FirstVDS_TestTask/backend/csvprocessing/csv_files/:/usr/src/storage
+    depends_on:
+      - redis

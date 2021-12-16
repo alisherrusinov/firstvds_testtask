@@ -39,6 +39,7 @@ def csv_task(filename):
             float_col = float(column)
             total += float_col
 
-    os.remove(file_obj.name)
+    if (settings.REMOTE_STORAGE):
+        os.remove(file_obj.name)
 
     return total
