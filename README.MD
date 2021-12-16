@@ -19,7 +19,7 @@ docker-compose build
 docker-compose up
 ```
 
-###Env variables (in docker-compose.yml)
+### Env variables (in docker-compose.yml)
 
 ```yaml
 REMOTE_STORAGE=false # is app must take files from S3
